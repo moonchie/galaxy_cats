@@ -16,9 +16,9 @@ Use Phaser.Sprite.call(this, state.game, x, y, data.asset);
 
 
 ## Functions to write
-function dropBlock
-function dropBlockReserve  (similar to the one above)
-functinon updateGrid
+function dropBlock (done)
+function dropBlockReserve  (done)
+functinon updateGrid (done)
 function reset(x,y,data): use the phaser call function
 
 

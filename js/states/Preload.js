@@ -10,8 +10,8 @@ galaxyCats.PreloadState = {
     this.load.setPreloadSprite(this.preloadBar);
 
     //load game assets
-    this.load.image('block1', 'assets/images/bean_blue.png');
-    this.load.image('block2', 'assets/images/bean_green.png');
+    this.load.image('block1', 'assets/images/bean_green.png');
+    this.load.image('block2', 'assets/images/bean_blue.png');
     this.load.image('block3', 'assets/images/bean_orange.png');
     this.load.image('block4', 'assets/images/bean_pink.png');
     this.load.image('block5', 'assets/images/bean_purple.png');

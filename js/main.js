@@ -7,3 +7,5 @@ galaxyCats.game.state.add('Preload', galaxyCats.PreloadState);
 galaxyCats.game.state.add('Game', galaxyCats.GameState);
 
 galaxyCats.game.state.start('Boot');
+
+

@@ -1,5 +1,4 @@
-var galaxyCatss = galaxyCats || {};
-
+var galaxyCats = galaxyCats || {};
 
 // Board function to populate grid randomly
 galaxyCats.Board = function(state, rows, cols, blockVariations) {
