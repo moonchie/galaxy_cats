@@ -157,22 +157,24 @@ galaxyCat.Board.prototype.isChained = function(cell) {
 
 
 //------------ FIND ALL CHAINED FOR CLEAR --------------
+
 galaxyCat.Board.prototype.findAllChains = function(){
 var allChained = [];
 var i, j;
 
-for(i = 0; i < this.rows; i++) {
-  for(j = 0; j < this.cols; j++) {
-    if(this.isChained({row: i, col: j})) {   //use isChained to check if true/false
-      allChained.push({row: i, col: j});    //push to allChained array
-    }
-  }
-}
+  for(i = 0; i < this.rows; i++) {
+    for(j = 0; j < this.cols; j++) {
+      if(this.isChained({row: i, col: j})) {   //use isChained to check if true/false
+        allChained.push({row: i, col: j});    //push to allChained array
+      };
+    };
+  };
 console.log(allChained);
 return allChained;
+};
 
-//------------------CLEAR ALL CHAINS -------------------
-galaxyCat.Board.prototype.clearChains = function(){
+
+galaxyCat.Board.prototype.clearAll = function(){
   var chainedBlocks = this.findAllChains();
 
   //set them to zero
@@ -181,4 +183,3 @@ galaxyCat.Board.prototype.clearChains = function(){
   }, this);
 };
 
-}
