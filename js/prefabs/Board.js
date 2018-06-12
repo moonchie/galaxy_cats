@@ -1,8 +1,8 @@
-var galaxyCat = galaxyCat || {};
+var galaxyCatss = galaxyCats || {};
 
 
 // Board function to populate grid randomly
-galaxyCat.Board = function(state, rows, cols, blockVariations) {
+galaxyCats.Board = function(state, rows, cols, blockVariations) {
 
   this.state = state;
   this.rows = rows;
@@ -24,7 +24,7 @@ galaxyCat.Board = function(state, rows, cols, blockVariations) {
   //reserve grid on the top, for when new blocks are needed
   this.reserveGrid = [];
 
-  this.RESERVE_ROW = 5;
+  this.RESERVE_ROW = 7;
 
   for(i = 0; i < this.RESERVE_ROW; i++) {
     this.reserveGrid.push([]);
@@ -40,7 +40,7 @@ galaxyCat.Board = function(state, rows, cols, blockVariations) {
 
 };
 
-galaxyCat.Board.prototype.populateGrid = function(){
+galaxyCats.Board.prototype.populateGrid = function(){
   var i,j,variation;    //add in a random variation when we populate our grid
   for(i = 0; i < this.rows; i++) {
     for(j = 0; j < this.cols; j++) {
@@ -50,7 +50,7 @@ galaxyCat.Board.prototype.populateGrid = function(){
   }
 };
 
-galaxyCat.Board.prototype.populateReserveGrid = function(){
+galaxyCats.Board.prototype.populateReserveGrid = function(){
   var i,j,variation;
   for(i = 0; i < this.RESERVE_ROW; i++) {
     for(j = 0; j < this.cols; j++) {
@@ -61,7 +61,7 @@ galaxyCat.Board.prototype.populateReserveGrid = function(){
 };
 
 //------------ VISUALIZATION IN CONSOLE--------------------
-galaxyCat.Board.prototype.consoleLog = function(){
+galaxyCats.Board.prototype.consoleLog = function(){
   var i,j,variation;
   var prettyString = ""; //a string to seperate the row
 
@@ -85,17 +85,17 @@ galaxyCat.Board.prototype.consoleLog = function(){
 
 
 // ------------------SWAPPING BLOCKS----------------
-galaxyCat.Board.prototype.swap = function(source, target){
+galaxyCats.Board.prototype.swap = function(source, target){
   var tempLoc = this.grid[target.row][target.col];
   //Exchange their row and col
   this.grid[target.row][target.col] = this.grid[source.row][source.col];
   this.grid[source.row][source.col] = tempLoc;
 };
-//in console: galaxyCat.GameState.board.swap({row:0,col:0},{row:0,col:1})
-//galaxyCat.GameState.board.consoleLog()
+//in console: galaxyCats.GameState.board.swap({row:0,col:0},{row:0,col:1})
+//galaxyCats.GameState.board.consoleLog()
 
 // ----------------CHECK ADJACENT-------------------
-galaxyCat.Board.prototype.checkAdjacent = function(source, target){
+galaxyCats.Board.prototype.checkAdjacent = function(source, target){
 // position difference can only be on row or col, and difference = 1;
   var diffRow = Math.abs(source.row - target.row);
   var diffCol = Math.abs(source.col - target.col);
@@ -103,13 +103,13 @@ galaxyCat.Board.prototype.checkAdjacent = function(source, target){
   var isAdjacent = (diffRow === 1 && diffCol === 0) || (diffCol === 1 && diffRow === 0);
   return isAdjacent;
 };
-//check: galaxyCat.GameState.board.checkAdjacent({row:0,col:0},{row:0,col:3})
+//check: galaxyCats.GameState.board.checkAdjacent({row:0,col:0},{row:0,col:3})
 
 
 //------------------- CHECK CHAIN >3 ------------------------
 /* Identify 1 cell is part of chain, then later will be destroyed
 Total 6 cases*/
-galaxyCat.Board.prototype.isChained = function(cell) {
+galaxyCats.Board.prototype.isChained = function(cell) {
   var isChained = false;
   var variation = this.grid[cell.row][cell.col];  //value that needs to be compared with 2 adjacent cells
   var row = cell.row;
@@ -153,12 +153,12 @@ galaxyCat.Board.prototype.isChained = function(cell) {
 };
   return isChained;
 }
-//check: galaxyCat.GameState.board.isChained({row:0,col:3})
+//check: galaxyCats.GameState.board.isChained({row:0,col:3})
 
 
 //------------ FIND ALL CHAINED FOR CLEAR --------------
 
-galaxyCat.Board.prototype.findAllChains = function(){
+galaxyCats.Board.prototype.findAllChains = function(){
 var allChained = [];
 var i, j;
 
@@ -174,7 +174,7 @@ return allChained;
 };
 
 
-galaxyCat.Board.prototype.clearAll = function(){
+galaxyCats.Board.prototype.clearAll = function(){
   var chainedBlocks = this.findAllChains();
 
   //set them to zero
@@ -183,3 +183,49 @@ galaxyCat.Board.prototype.clearAll = function(){
   }, this);
 };
 
+
+// -------------- DROP BLOCK TO A CERTAIN LOCATION -----------
+//drop a block from old row to new row, set the old location value to 0
+galaxyCats.Board.prototype.dropBlock = function(sourceLoc,targetLoc,col){
+  this.grid[targetLoc][col] = this.grid[sourceLoc][col];
+  this.grid[sourceLoc][col] = 0;
+};
+//galaxyCats.GameState.board.dropBlock(0,4,7)
+galaxyCats.Board.prototype.dropBlockReserve = function(sourceLoc,targetLoc,col){
+  this.grid[targetLoc][col] = this.reserveGrid[sourceLoc][col];
+  this.reserveGrid[sourceLoc][col] = 0;
+};
+
+
+//------------------UPDATE THE GRID -------------------------
+galaxyCats.Board.prototype.updateGrid = function(){
+  var i,j,k,search;
+
+  //botom up to scan all the col
+  for (i = this.rows - 1; i >= 0; i--){
+    for (j = 0; j < this.cols; j++){
+      //get the first non zero
+      if(this.grid[i][j] === 0) {
+        search = false;
+        //use k as a new col to go up and look for a block
+        for(k = i-1; k >=0; k--){
+          if(this.grid[k][j] > 0) {this.dropBlock(k, i, j)};   //call dropBlock to replace the row
+          search = true;
+          break;
+        };
+
+        if(!search) {
+          //Need to go to the reserve grid
+          for(k = this.RESERVE_ROW - 1; k >=0; k--){
+            if(this.reserveGrid[k][j] > 0) {this.dropBlockReserve(k, i, j)};
+            break;
+          };
+        }
+      }
+    }
+
+    //should repopulate the reserve grid
+    this.populateReserveGrid();
+  };
+
+}

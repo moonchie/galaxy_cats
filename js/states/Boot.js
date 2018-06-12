@@ -1,7 +1,7 @@
-var galaxyCat = galaxyCat || {};
+var galaxyCats = galaxyCats || {};
 
 //setting game configuration and loading the assets for the loading screen
-galaxyCat.BootState = {
+galaxyCats.BootState = {
   init: function() {
     //loading screen will have a white background
     this.game.stage.backgroundColor = '#fff';

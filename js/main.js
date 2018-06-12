@@ -1,9 +1,9 @@
-var galaxyCat = galaxyCat || {};
+var galaxyCats = galaxyCats || {};
 
-galaxyCat.game = new Phaser.Game(360, 640, Phaser.AUTO);
+galaxyCats.game = new Phaser.Game(360, 640, Phaser.AUTO);
 
-galaxyCat.game.state.add('Boot', galaxyCat.BootState);
-galaxyCat.game.state.add('Preload', galaxyCat.PreloadState);
-galaxyCat.game.state.add('Game', galaxyCat.GameState);
+galaxyCats.game.state.add('Boot', galaxyCats.BootState);
+galaxyCats.game.state.add('Preload', galaxyCats.PreloadState);
+galaxyCats.game.state.add('Game', galaxyCats.GameState);
 
-galaxyCat.game.state.start('Boot');
+galaxyCats.game.state.start('Boot');

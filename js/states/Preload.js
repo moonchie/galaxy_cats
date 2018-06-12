@@ -1,7 +1,7 @@
-var galaxyCat = galaxyCat || {};
+var galaxyCats = galaxyCats || {};
 
 //loading the game assets
-galaxyCat.PreloadState = {
+galaxyCats.PreloadState = {
   preload: function() {
     //show loading screen
     this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'bar');

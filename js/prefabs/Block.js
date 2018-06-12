@@ -1,6 +1,6 @@
-var galaxyCat = galaxyCat || {};
+var galaxyCats = galaxyCats || {};
 
-galaxyCat.Block = function(state, x, y, data) {
+galaxyCats.Block = function(state, x, y, data) {
   Phaser.Sprite.call(this, state.game, x, y, data.asset);
 
   this.game = state.game;
@@ -10,6 +10,6 @@ galaxyCat.Block = function(state, x, y, data) {
 
 };
 
-galaxyCat.Block.prototype = Object.create(Phaser.Sprite.prototype);
-galaxyCat.Block.prototype.constructor = galaxyCat.Block;
+galaxyCatss.Block.prototype = Object.create(Phaser.Sprite.prototype);
+galaxyCatss.Block.prototype.constructor = galaxyCats.Block;
 

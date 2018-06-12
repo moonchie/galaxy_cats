@@ -1,6 +1,6 @@
-var galaxyCat = galaxyCat || {};
+var galaxyCats = galaxyCats || {};
 
-galaxyCat.GameState = {
+galaxyCats.GameState = {
 
   init: function() {
     this.NUM_ROWS = 8;
@@ -14,7 +14,7 @@ galaxyCat.GameState = {
     this.background = this.add.sprite(0, 0, 'background');
 
     //board model
-    this.board = new galaxyCat.Board(this, this.NUM_ROWS, this.NUM_COLS, this.NUM_VARIATIONS);  //Prototypal inheritance
+    this.board = new galaxyCats.Board(this, this.NUM_ROWS, this.NUM_COLS, this.NUM_VARIATIONS);  //Prototypal inheritance
     this.board.consoleLog();
   }
 
