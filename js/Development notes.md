@@ -1,7 +1,7 @@
 # What's next:
 
 
-## Things to do today
+## Thoughts
 1. drop a block in the main grid from a position to another. the source is set to zero. It's a horizontal drop so only row data needs to be updated.
 
 2. drop a block in the reserve grid from a position to another. the source is set to zero
@@ -15,11 +15,18 @@ Use Phaser.Sprite.call(this, state.game, x, y, data.asset);
 
 
 
-## Functions to write
+## Functions in Board.js
 function dropBlock (done)
 function dropBlockReserve  (done)
 functinon updateGrid (done)
-function reset(x,y,data): use the phaser call function
+function reset(x,y,data) (done)
+
+
+## Functions in Game.js
+createBlock: to create a block (done)
+drawBoard: draw bitmap and populate squares relevant to the size of the block (done)
+
+
 
 
 

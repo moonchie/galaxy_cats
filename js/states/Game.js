@@ -19,7 +19,7 @@ galaxyCats.GameState = {
     this.board.consoleLog();
 
 
-    //-----------DRAW BOARD-------------------
+    //-------------------DRAW BOARD-------------------
     this.drawBoard();
 
   },
