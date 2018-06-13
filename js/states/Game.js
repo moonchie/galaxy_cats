@@ -56,7 +56,7 @@ galaxyCats.GameState = {
     for (i = 0; i < this.NUM_ROWS; i ++){
       for (j = 0; j < this.NUM_COLS; j ++) {
         mapR = 36 + j * (this.BLOCK_SIZE + 6);
-        mapC = 80 + i * (this.BLOCK_SIZE + 6);
+        mapC = 150 + i * (this.BLOCK_SIZE + 6);
 
         square = this.add.sprite(mapR, mapC, squareBitmap);
         square.anchor.setTo(0.5);
@@ -83,7 +83,33 @@ galaxyCats.GameState = {
       }
     }, this);
     return foundBlock;
-  }
+  },
+
+//Animation: drop block
+dropBlock: function(sourceRow, targetRow, col){
+  var block = this.getBlockPosition({row: sourceRow, col: col});
+  var targetY = 150 + targetRow * (this.BLOCK_SIZE + 6);
+
+  block.row = targetRow;
+  var blockMovement = this.game.add.tween(block);
+  blockMovement.to({y: targetY}, this.ANIMATION_TIME);
+  blockMovement.start();
+},
+
+dropReserveBlock: function(sourceRow, targetRow, col){
+  var x = 36 + col * (this.BLOCK_SIZE + 6);
+  var y = -(this.BLOCK_SIZE + 6) * this.board.RESERVE_ROW + sourceRow *(this.BLOCK_SIZE + 6);
+  //in reserve need to create a new block
+  var block = this.createBlock(x, y , {asset:"block" + this.board.grid[targetRow][col], row: targetRow, col: col});
+  var targetY = 150 + targetRow * (this.BLOCK_SIZE + 6);
+
+  block.row = targetRow;
+  var blockMovement = this.game.add.tween(block);
+  blockMovement.to({y: targetY}, this.ANIMATION_TIME);
+  blockMovement.start();
+},
+//galaxyCats.GameState.board.clearAll()
+//galaxyCats.GameState.board.updateGrid()
 
 
 }
