@@ -9,6 +9,9 @@ galaxyCats.Block = function(state, x, y, data) {
   this.col = data.col;
   this.anchor.setTo(0.5);
 
+  //Add user input to be interactive
+  this.inputEnabled = true;
+  this.events.onInputDown.add(state.actionSwap, this.state);
 };
 
 galaxyCats.Block.prototype = Object.create(Phaser.Sprite.prototype);

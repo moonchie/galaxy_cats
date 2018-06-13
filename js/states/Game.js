@@ -19,10 +19,14 @@ galaxyCats.GameState = {
     this.board = new galaxyCats.Board(this, this.NUM_ROWS, this.NUM_COLS, this.NUM_VARIATIONS);  //Prototypal inheritance
     this.board.consoleLog();
 
-
     //-------------------DRAW BOARD-------------------
     this.drawBoard();
 
+
+    //--------------TEST SWAPS -----------------------
+    /*var block1 = this.blocks.children[10];
+    var block2 = this.blocks.children[11];
+    this.swapBlocks(block1,block2); */
   },
 
 
@@ -60,7 +64,7 @@ galaxyCats.GameState = {
 
         square = this.add.sprite(mapR, mapC, squareBitmap);
         square.anchor.setTo(0.5);
-        square.alpha = 0.3;
+        square.alpha = 0.1;
 
         this.createBlock(mapR, mapC, {
           asset: "block" + this.board.grid[i][j],  //use the board object to get dynamic grid
@@ -95,7 +99,6 @@ dropBlock: function(sourceRow, targetRow, col){
   blockMovement.to({y: targetY}, this.ANIMATION_TIME);
   blockMovement.start();
 },
-
 dropReserveBlock: function(sourceRow, targetRow, col){
   var x = 36 + col * (this.BLOCK_SIZE + 6);
   var y = -(this.BLOCK_SIZE + 6) * this.board.RESERVE_ROW + sourceRow *(this.BLOCK_SIZE + 6);
@@ -110,6 +113,98 @@ dropReserveBlock: function(sourceRow, targetRow, col){
 },
 //galaxyCats.GameState.board.clearAll()
 //galaxyCats.GameState.board.updateGrid()
+
+//Animation to swap blocks
+swapBlocks: function(block1, block2) {
+  var block1Move = this.game.add.tween(block1);
+  block1Move.to({x: block2.x, y: block2.y},this.ANIMATION_TIME);
+  block1Move.onComplete.add(function(){
+    //到达移动位置后
+    this.board.swap(block1, block2);
+
+    //看有没有配对成功
+
+    if(!this.isReversingSwap){   //查看是否已经有reverse的
+      var chains = this.board.findAllChains(); //有就消除chains
+
+      if (chains.length > 0){
+        this.updateEverything();
+      }
+      else {
+        this.isReversingSwap = true;    //没有就还原block1block2的原位置
+        this.swapBlocks(block1, block2);
+      }
+    }
+    else {
+      this.isReversingSwap = false;
+      this.clearEverything();
+    }
+  },this);
+  block1Move.start();
+  console.log("hey we have swapped! But you didn't see!");
+
+  var block2Move = this.game.add.tween(block2);
+    block2Move.to({x: block1.x, y: block1.y}, this.ANIMATION_TIME);
+    block2Move.start();
+},
+//------------------ALLOW USER TO SWAP!! -------------------------
+actionSwap: function(block) {
+  //only swap if the UI is not blocked
+  if(this.isBoardBlocked) {
+    return;
+  }
+
+  //if there is nothing selected
+  if(!this.selectedBlock) {
+    //highlight the first block
+    block.scale.setTo(1.5);
+
+    this.selectedBlock = block;
+  }
+  else {
+    //second block you are selecting is target block
+    this.targetBlock = block;
+
+    //only adjacent blocks can swap
+    if(this.board.checkAdjacent(this.selectedBlock, this.targetBlock)) {
+      //block the UI
+      this.isBoardBlocked = true;
+
+      //swap blocks
+      this.swapBlocks(this.selectedBlock, this.targetBlock);
+    }
+    else {
+      this.clearEverything();
+    }
+  }
+
+},
+  //---------------CLEAR EVERYTHING-------------------
+
+  clearEverything: function(){
+    this.isBoardBlocked = false;
+    this.selectedBlock = null;
+    this.blocks.setAll("scale.x", 1);  //resize the blocks to original size
+    this.blocks.setAll("scale.y", 1);
+  },
+
+  //------------------UPDATE EVERYTHING------------------
+  updateEverything: function(){
+    this.board.clearAll();
+    this.board.updateGrid();
+
+    //set a time event after dropping
+    this.game.time.events.add(this.ANIMATION_TIME, function(){
+      //see if new chains
+      var chains = this.board.findAllChains();
+      if (chains.length > 0 ) {
+        this.updateEverything();
+      } else {
+        this.clearEverything();
+      }
+    }, this);
+  }
+
 
 
 }

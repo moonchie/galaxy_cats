@@ -47,6 +47,13 @@ galaxyCats.Board.prototype.populateGrid = function(){
       this.grid[i][j] = variation;
     }
   }
+
+  // to avoid to have chains at the beginning
+  var chains = this.findAllChains();
+  if (chains.length > 0) {
+    this.populateGrid();
+    console.log("Grid starts without chains!");
+  }
 };
 
 galaxyCats.Board.prototype.populateReserveGrid = function(){
@@ -89,6 +96,13 @@ galaxyCats.Board.prototype.swap = function(source, target){
   //Exchange their row and col
   this.grid[target.row][target.col] = this.grid[source.row][source.col];
   this.grid[source.row][source.col] = tempLoc;
+
+  //最后一步是要把block1和block2在swap后的位置给定
+  var temPos = {row: source.row, col: source.col}; //use temporary position to guide
+  source.row = target.row;
+  source.col = target.col;
+  target.row = temPos.row;
+  target.col = temPos.col;
 };
 //in console: galaxyCats.GameState.board.swap({row:0,col:0},{row:0,col:1})
 //galaxyCats.GameState.board.consoleLog()
@@ -236,4 +250,6 @@ galaxyCats.Board.prototype.updateGrid = function(){
   //repopulate the reserve
   this.populateReserveGrid();
 };
+
+
 
