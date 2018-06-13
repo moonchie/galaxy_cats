@@ -6,11 +6,6 @@ var fragmentSrc;
 //loading the game assets
 galaxyCats.PreloadState = {
   preload: function() {
-    //show loading screen
-    this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'bar');
-    this.preloadBar.anchor.setTo(0.5);
-    this.preloadBar.scale.setTo(100, 1);
-    this.load.setPreloadSprite(this.preloadBar);
 
     //load game assets
     this.load.image('block1', 'assets/images/cat1.png');
@@ -22,7 +17,12 @@ galaxyCats.PreloadState = {
     this.load.image('block7', 'assets/images/cat7.png');
     this.load.image('block8', 'assets/images/cat8.png');
     this.load.image('deadBlock', 'assets/images/bean_dead.png');
-    this.load.image('background', 'assets/images/galaxy3.jpg');
+    this.load.image('background', 'assets/images/starshine.gif');
+    this.load.image('planet1', 'assets/images/planet1.png');
+
+    //load font
+    this.game.load.bitmapFont('myfont', 'assets/font.png', 'assets/font.fnt');
+
   },
 
   create: function() {

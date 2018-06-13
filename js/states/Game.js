@@ -5,14 +5,16 @@ galaxyCats.GameState = {
 
   init: function() {
     this.NUM_ROWS = 8;
-    this.NUM_COLS = 8;
+    this.NUM_COLS = 6;
     this.NUM_VARIATIONS = 7;
     this.BLOCK_SIZE = 35;
     this.ANIMATION_TIME = 200;
   },
   create: function() {
     //game background
-    this.background = this.add.sprite(0, 0, 'background');
+    this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height,'background');
+    this.background.autoScroll(0, 15);
+
     this.blocks = this.add.group();
 
     //-----------CREATE BOARD---------------
@@ -23,10 +25,10 @@ galaxyCats.GameState = {
     this.drawBoard();
 
 
-    //--------------TEST SWAPS -----------------------
-    /*var block1 = this.blocks.children[10];
-    var block2 = this.blocks.children[11];
-    this.swapBlocks(block1,block2); */
+    //--------------DECORATIONS-----------------------
+    var planet1 = this.game.add.sprite(20,600, "planet1");
+    planet1.anchor.setTo(0.5);
+    planet1.scale.setTo(-1.5);
   },
 
 
@@ -53,13 +55,13 @@ galaxyCats.GameState = {
     var i, i,  block, square, mapR, mapC, data;
       //bitmap parameters
     var squareBitmap = this.add.bitmapData(this.BLOCK_SIZE + 4, this.BLOCK_SIZE + 4);
-    squareBitmap.ctx.fillyStyle = "white";
+    squareBitmap.ctx.fillyStyle = "#800080";
     squareBitmap.ctx.fillRect(0, 0, this.BLOCK_SIZE + 4, this.BLOCK_SIZE + 4);
 
     //to create
     for (i = 0; i < this.NUM_ROWS; i ++){
       for (j = 0; j < this.NUM_COLS; j ++) {
-        mapR = 36 + j * (this.BLOCK_SIZE + 6);
+        mapR = 80 + j * (this.BLOCK_SIZE + 6);
         mapC = 150 + i * (this.BLOCK_SIZE + 6);
 
         square = this.add.sprite(mapR, mapC, squareBitmap);
@@ -100,7 +102,7 @@ dropBlock: function(sourceRow, targetRow, col){
   blockMovement.start();
 },
 dropReserveBlock: function(sourceRow, targetRow, col){
-  var x = 36 + col * (this.BLOCK_SIZE + 6);
+  var x = 80 + col * (this.BLOCK_SIZE + 6);
   var y = -(this.BLOCK_SIZE + 6) * this.board.RESERVE_ROW + sourceRow *(this.BLOCK_SIZE + 6);
   //in reserve need to create a new block
   var block = this.createBlock(x, y , {asset:"block" + this.board.grid[targetRow][col], row: targetRow, col: col});

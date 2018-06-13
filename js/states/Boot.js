@@ -14,7 +14,11 @@ galaxyCats.BootState = {
     this.scale.pageAlignVertically = true;
   },
   preload: function() {
-    //assets we'll use in the loading screen
+    //show loading screen
+    this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'bar');
+    this.preloadBar.anchor.setTo(0.5);
+    this.preloadBar.scale.setTo(100, 1);
+    this.load.setPreloadSprite(this.preloadBar);
     this.load.image('bar', 'assets/images/preloader-bar.png');
   },
   create: function() {

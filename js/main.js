@@ -5,10 +5,10 @@ galaxyCats.game = new Phaser.Game(360, 640, Phaser.AUTO);
 galaxyCats.game.state.add('Boot', galaxyCats.BootState);
 galaxyCats.game.state.add('Preload', galaxyCats.PreloadState);
 galaxyCats.game.state.add('Game', galaxyCats.GameState);
-galaxyCats.game.state.add('filter', galaxyCats.filter);
+galaxyCats.game.state.add('Home', galaxyCats.HomeState);
 
 
-galaxyCats.game.state.start('Boot');
+galaxyCats.game.state.start('Home');
 
 
 
