@@ -7,7 +7,6 @@ galaxyCats.Block = function(state, x, y, data) {
   this.state = state;
   this.row = data.row;
   this.col = data.col;
-
   this.anchor.setTo(0.5);
 
 };
@@ -23,3 +22,16 @@ galaxyCats.Block.prototype.reset = function(x, y, data) {
   this.row = data.row;
   this.col = data.col;
 };
+
+//Kill function
+galaxyCats.Block.prototype.kill = function(){
+  this.loadTexture("deadBlock");
+  this.col = null;
+  this.row = null;
+
+  //pre-set animation time in game.js
+  this.game.time.events.add(200/2, function(){
+    Phaser.Sprite.prototype.kill.call(this);
+  }, this);
+}
+

@@ -1,5 +1,6 @@
 var galaxyCats = galaxyCats || {};
 
+
 galaxyCats.GameState = {
 
   init: function() {
@@ -70,9 +71,19 @@ galaxyCats.GameState = {
     }
 
     this.game.world.bringToTop(this.blocks);      //Bring the blocks before the bitmap
+  },
+
+//get location of a certain block
+  getBlockPosition: function(position) {
+    var foundBlock;
+
+    this.blocks.forEachAlive(function(block){
+      if(block.row === position.row && block.col === position.col){
+        foundBlock = block;
+      }
+    }, this);
+    return foundBlock;
   }
-
-
 
 
 }

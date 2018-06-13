@@ -1,6 +1,9 @@
 # What's next:
 
 
+
+
+
 ## Thoughts
 1. drop a block in the main grid from a position to another. the source is set to zero. It's a horizontal drop so only row data needs to be updated.
 
@@ -25,6 +28,8 @@ function reset(x,y,data) (done)
 ## Functions in Game.js
 createBlock: to create a block (done)
 drawBoard: draw bitmap and populate squares relevant to the size of the block (done)
+
+
 
 
 

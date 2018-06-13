@@ -175,10 +175,11 @@ return allChained;
 
 galaxyCats.Board.prototype.clearAll = function(){
   var chainedBlocks = this.findAllChains();
-
   //set them to zero
   chainedBlocks.forEach(function(block){
     this.grid[block.row][block.col] = 0;
+    //kill them
+    this.state.getBlockPosition(block).kill();
   }, this);
 };
 
