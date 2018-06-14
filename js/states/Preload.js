@@ -8,8 +8,8 @@ galaxyCats.PreloadState = {
   preload: function() {
 
     //load game assets
-    this.load.image('block1', 'assets/images/cat1.png');
-    this.load.image('block2', 'assets/images/cat2.png');
+    this.load.image('block1', 'assets/images/cat11.png');
+    this.load.image('block2', 'assets/images/cat9.png');
     this.load.image('block3', 'assets/images/cat3.png');
     this.load.image('block4', 'assets/images/cat4.png');
     this.load.image('block5', 'assets/images/cat5.png');
@@ -19,9 +19,16 @@ galaxyCats.PreloadState = {
     this.load.image('deadBlock', 'assets/images/bean_dead.png');
     this.load.image('background', 'assets/images/starshine.gif');
     this.load.image('planet1', 'assets/images/planet1.png');
+    this.load.image('planet2', 'assets/images/planet2.png');
+    this.load.image('complete', 'assets/images/complete.png');
+    this.load.image("arrow", "assets/images/sysimg_arrow_l.png");
 
-    //load font
-    this.game.load.bitmapFont('myfont', 'assets/font.png', 'assets/font.fnt');
+    //load scoar board
+    this.load.image("board", "assets/images/sysimg_takara_list_base.png");
+
+    //sprite
+    this.load.spritesheet("fire","assets/images/explosion.png");
+
 
   },
 

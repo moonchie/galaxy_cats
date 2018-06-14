@@ -1,5 +1,7 @@
 var galaxyCats = galaxyCats || {};
 
+var score = 0;
+var target = 1;
 
 galaxyCats.GameState = {
 
@@ -29,6 +31,20 @@ galaxyCats.GameState = {
     var planet1 = this.game.add.sprite(20,600, "planet1");
     planet1.anchor.setTo(0.5);
     planet1.scale.setTo(-1.5);
+
+    var board = this.game.add.sprite(280,530, "board");
+    board.scale.setTo(0.2);
+    board.anchor.setTo(0.5);
+
+    // -------------------EXPLOSION ------------------------
+    /*var fire = this.game.add.sprite(200, 360, 'fire', 5);
+    fire.scale.set(4);
+    fire.smoothed = false;
+    var anim = fire.animations.add("walk");
+    anim.onstart.add(animationStarted, fire);
+    anim.onComplete.add(animationLooped, fire);
+    anim.play(10, true);*/
+
   },
 
 
@@ -131,6 +147,7 @@ swapBlocks: function(block1, block2) {
 
       if (chains.length > 0){
         this.updateEverything();
+        score = score + 1;
       }
       else {
         this.isReversingSwap = true;    //没有就还原block1block2的原位置
@@ -144,6 +161,7 @@ swapBlocks: function(block1, block2) {
   },this);
   block1Move.start();
   console.log("hey we have swapped! But you didn't see!");
+
 
   var block2Move = this.game.add.tween(block2);
     block2Move.to({x: block1.x, y: block1.y}, this.ANIMATION_TIME);
@@ -174,9 +192,16 @@ actionSwap: function(block) {
 
       //swap blocks
       this.swapBlocks(this.selectedBlock, this.targetBlock);
+      score = score + 1 -1;
+      console.log(score);
+      if (score === target) {
+          this.state.start('Gameover');
+          console.log(score);
+      }
     }
     else {
       this.clearEverything();
+
     }
   }
 
@@ -205,8 +230,7 @@ actionSwap: function(block) {
         this.clearEverything();
       }
     }, this);
-  }
-
+  },
 
 
 }
