@@ -1,7 +1,7 @@
 var galaxyCats = galaxyCats || {};
 
 var score = 0;
-var target = 1;
+var target = 10;
 
 galaxyCats.GameState = {
 
