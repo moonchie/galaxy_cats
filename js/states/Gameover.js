@@ -1,5 +1,6 @@
 var galaxyCats = galaxyCats || {};
 
+var planet2;
 //Game over screen
 galaxyCats.Gameover = {
     init: function() {
@@ -10,7 +11,13 @@ galaxyCats.Gameover = {
       },
 
     create: function() {
-        var planet2 = this.game.add.sprite(100,600, "planet2");
+        this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height,'background');
+        this.background.autoScroll(0, 15);
+
+        this.blocks = this.add.group();
+
+
+        planet2 = this.game.add.sprite(100,600, "planet2");
         planet2.anchor.setTo(0.5);
         planet2.scale.setTo(-1.5);
 
@@ -26,11 +33,19 @@ galaxyCats.Gameover = {
         text.setShadow(3, 3, '#000000', 5);
         text.fill = grd;
 
-        var complete = this.game.add.sprite(200,400, "complete");
+        /*var complete = this.game.add.sprite(200,400, "complete");
+        planet2.anchor.setTo(0.5); */
 
-        var arrow = this.game.add.sprite(200,600,"arrow");
-        arrow.anchor.set(0.5);
-        arrow.scale.setTo(0.8);
+        //Restart the game
 
-    }
+        var textAgain = this.add.text(this.world.centerX,550,"Refresh Page To Play Again",{ font: "Audiowide"});
+        textAgain.anchor.set(0.5);
+        textAgain.fontSize = 15;
+        textAgain.addColor("#000000", 0);
+
+    },
+
+    update: function(){
+        planet2.angle -= 0.08;
+      },
 }

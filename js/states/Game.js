@@ -1,7 +1,11 @@
 var galaxyCats = galaxyCats || {};
 
-var score = 0;
+
 var target = 10;
+var score = target;
+var text1;
+var scoreDisplay;
+var planet1;
 
 galaxyCats.GameState = {
 
@@ -28,13 +32,20 @@ galaxyCats.GameState = {
 
 
     //--------------DECORATIONS-----------------------
-    var planet1 = this.game.add.sprite(20,600, "planet1");
+    planet1 = this.game.add.sprite(20,600, "planet1");
     planet1.anchor.setTo(0.5);
     planet1.scale.setTo(-1.5);
+    planet1.alpha = 0.7;
 
-    var board = this.game.add.sprite(280,530, "board");
-    board.scale.setTo(0.2);
-    board.anchor.setTo(0.5);
+    text1 = this.add.text(175,500, "TARGET: ",{ font: "30px Audiowide"} );
+    text1.anchor.set(0.5);
+    text1.fontSize = 20;
+    text1.addColor('#fffacd',0);
+
+    scoreDisplay = this.add.text(175,528, score,{ font: "30px Audiowide"} );
+        scoreDisplay.anchor.set(0.5);
+        scoreDisplay.fontSize = 20;
+        scoreDisplay.addColor('#fffacd',0);
 
     // -------------------EXPLOSION ------------------------
     /*var fire = this.game.add.sprite(200, 360, 'fire', 5);
@@ -47,6 +58,9 @@ galaxyCats.GameState = {
 
   },
 
+  update: function(){
+    planet1.angle += 0.08;
+  },
 
   // -----------------CREATE A BLOCK----------------------
   //a pull function to create a block on board
@@ -147,7 +161,9 @@ swapBlocks: function(block1, block2) {
 
       if (chains.length > 0){
         this.updateEverything();
-        score = score + 1;
+        score --;
+        scoreDisplay.text = score;
+
       }
       else {
         this.isReversingSwap = true;    //没有就还原block1block2的原位置
@@ -194,14 +210,13 @@ actionSwap: function(block) {
       this.swapBlocks(this.selectedBlock, this.targetBlock);
       score = score + 1 -1;
       console.log(score);
-      if (score === target) {
+      if (score === 1) {
           this.state.start('Gameover');
           console.log(score);
       }
     }
     else {
       this.clearEverything();
-
     }
   }
 
@@ -231,6 +246,8 @@ actionSwap: function(block) {
       }
     }, this);
   },
+
+
 
 
 }

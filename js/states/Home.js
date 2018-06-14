@@ -27,13 +27,7 @@ galaxyCats.HomeState = {
     },
     create: function() {
         var background = this.game.add.sprite(0,0,"galaxy");
-        /*var catBackground = this.game.add.sprite(this.world.centerX, this.world.centerY,"cat");
-        catBackground.scale.setTo(0.3);
-        catBackground.anchor.setTo(0.5);
-        */
 
-
-        //var style = {font: "60px Revalia", fill: "#ff0044", align: "center" };
         var text = this.add.text(this.world.centerX, this.world.centerY-100, "GALAXY \n CATS",{ font: "30px Audiowide"} );
         text.anchor.set(0.5);
         text.fontSize = 45;
@@ -46,14 +40,13 @@ galaxyCats.HomeState = {
         text.fill = grd;
 
 
-
         //-------BUTTON------------
         var button = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, "button");
         button.anchor.setTo(0.5);
         button.scale.setTo(0.5);
         button.inputEnabled = true;
         button.events.onInputDown.add(function(){
-            this.state.start('Boot');
+            this.state.start('Preload');
         },this)
     },
 

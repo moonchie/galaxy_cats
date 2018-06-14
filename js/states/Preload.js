@@ -5,6 +5,13 @@ var sprite;
 var fragmentSrc;
 //loading the game assets
 galaxyCats.PreloadState = {
+  init: function() {
+    this.game.stage.backgroundColor = '#000000';
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+  },
+
   preload: function() {
 
     //load game assets
@@ -21,10 +28,10 @@ galaxyCats.PreloadState = {
     this.load.image('planet1', 'assets/images/planet1.png');
     this.load.image('planet2', 'assets/images/planet2.png');
     this.load.image('complete', 'assets/images/complete.png');
-    this.load.image("arrow", "assets/images/sysimg_arrow_l.png");
 
     //load scoar board
-    this.load.image("board", "assets/images/sysimg_takara_list_base.png");
+    this.load.image("scoreBoard", "assets/images/sysimg_takara_list_base.png");
+    this.load.image("targetBoard", "assets/images/sysimg_kaimono_window_kakin_nedan.png");
 
     //sprite
     this.load.spritesheet("fire","assets/images/explosion.png");
