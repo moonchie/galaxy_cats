@@ -17,15 +17,9 @@ galaxyCats.HomeState = {
       },
 
     preload: function() {
-        //assets we'll use in the loading screen
-        this.load.image("galaxy", "assets/images/galaxy_pretty.png");
-        this.load.image("button", "assets/images/yes_button.png");
-        this.load.image("cat", "assets/images/catgalaxy.png");
-
-        //google font
-        this.load.script('Audiowide', 'https://fonts.googleapis.com/css?family=Audiowide');
     },
     create: function() {
+
         var background = this.game.add.sprite(0,0,"galaxy");
 
         var text = this.add.text(this.world.centerX, this.world.centerY-100, "GALAXY \n CATS",{ font: "30px Audiowide"} );
@@ -46,7 +40,9 @@ galaxyCats.HomeState = {
         button.scale.setTo(0.5);
         button.inputEnabled = true;
         button.events.onInputDown.add(function(){
-            this.state.start('Preload');
+            var clickAudio = this.add.audio("clickAudio");
+            clickAudio.play();
+            this.state.start('Game');
         },this)
     },
 

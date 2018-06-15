@@ -36,11 +36,29 @@ galaxyCats.PreloadState = {
     //sprite
     this.load.spritesheet("fire","assets/images/explosion.png");
 
+    //audio
+    this.load.audio("victoryAudio","assets/sounds/victory_final.wav");
+    this.load.audio("clickAudio","assets/sounds/pressButton.wav");
+    this.load.audio("matchAudio","assets/sounds/itsamatch.wav");
+    this.load.audio("galaxyAudio","assets/sounds/galaxyBackground.wav");
+    this.load.audio("swapAudio","assets/sounds/swap.wav");
+    this.load.audio("nerfthis","assets/sounds/D.Va_-_Nerf_this!.ogg");
+    this.load.audio("iplaytowin","assets/sounds/D.Va_-_I_play_to_win!.ogg");
+    this.load.audio("ouch","assets/sounds/D.Va_-_Ouch.ogg");
+    this.load.audio("magica","assets/sounds/magica.mp3");
 
+
+    //HomePage
+    this.load.image("galaxy", "assets/images/galaxy_pretty.png");
+    this.load.image("button", "assets/images/yes_button.png");
+    this.load.image("cat", "assets/images/catgalaxy.png");
+
+    //google font
+    this.load.script('Audiowide', 'https://fonts.googleapis.com/css?family=Audiowide');
   },
 
   create: function() {
-  this.state.start('Game');}
+  this.state.start('Home');}
 
 
 };

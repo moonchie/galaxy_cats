@@ -7,6 +7,9 @@ var text1;
 var scoreDisplay;
 var planet1;
 
+//audios
+var swapAudio, clickAudio, matchAudio, victoryAudio;
+
 galaxyCats.GameState = {
 
   init: function() {
@@ -17,11 +20,17 @@ galaxyCats.GameState = {
     this.ANIMATION_TIME = 200;
   },
   create: function() {
+
     //game background
     this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height,'background');
     this.background.autoScroll(0, 15);
 
     this.blocks = this.add.group();
+
+    planet1 = this.game.add.sprite(20,600, "planet1");
+    planet1.anchor.setTo(0.5);
+    planet1.scale.setTo(-1.5);
+    planet1.alpha = 0.7;
 
     //-----------CREATE BOARD---------------
     this.board = new galaxyCats.Board(this, this.NUM_ROWS, this.NUM_COLS, this.NUM_VARIATIONS);  //Prototypal inheritance
@@ -30,13 +39,7 @@ galaxyCats.GameState = {
     //-------------------DRAW BOARD-------------------
     this.drawBoard();
 
-
     //--------------DECORATIONS-----------------------
-    planet1 = this.game.add.sprite(20,600, "planet1");
-    planet1.anchor.setTo(0.5);
-    planet1.scale.setTo(-1.5);
-    planet1.alpha = 0.7;
-
     text1 = this.add.text(175,500, "TARGET: ",{ font: "30px Audiowide"} );
     text1.anchor.set(0.5);
     text1.fontSize = 20;
@@ -161,13 +164,25 @@ swapBlocks: function(block1, block2) {
 
       if (chains.length > 0){
         this.updateEverything();
+        matchAudio = this.add.audio('matchAudio');
+        matchAudio.play();
         score --;
         scoreDisplay.text = score;
-
+        if (score === 8){
+          var iplaytowin = this.add.audio('iplaytowin');
+          iplaytowin.play();
+          matchAudio.stop();
+        } else if (score === 5){
+          var nerfthis = this.add.audio("nerfthis");
+          matchAudio.stop();
+          nerfthis.play();
+        };
       }
       else {
         this.isReversingSwap = true;    //没有就还原block1block2的原位置
         this.swapBlocks(block1, block2);
+        ouch = this.add.audio('ouch');
+        ouch.play();
       }
     }
     else {
@@ -211,6 +226,8 @@ actionSwap: function(block) {
       score = score + 1 -1;
       console.log(score);
       if (score === 1) {
+          victoryAudio = this.add.audio("victoryAudio");
+          victoryAudio.play();
           this.state.start('Gameover');
           console.log(score);
       }

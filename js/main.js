@@ -9,7 +9,6 @@ galaxyCats.game.state.add('Home', galaxyCats.HomeState);
 galaxyCats.game.state.add('Gameover', galaxyCats.Gameover);
 
 
-galaxyCats.game.state.start('Home');
-
+galaxyCats.game.state.start('Preload');
 
 
