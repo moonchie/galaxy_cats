@@ -29,23 +29,14 @@ galaxyCats.PreloadState = {
     this.load.image('planet2', 'assets/images/planet2.png');
     this.load.image('complete', 'assets/images/complete.png');
 
-    //load scoar board
-    this.load.image("scoreBoard", "assets/images/sysimg_takara_list_base.png");
-    this.load.image("targetBoard", "assets/images/sysimg_kaimono_window_kakin_nedan.png");
-
-    //sprite
-    this.load.spritesheet("fire","assets/images/explosion.png");
-
     //audio
     this.load.audio("victoryAudio","assets/sounds/victory_final.wav");
     this.load.audio("clickAudio","assets/sounds/pressButton.wav");
     this.load.audio("matchAudio","assets/sounds/itsamatch.wav");
-    this.load.audio("galaxyAudio","assets/sounds/galaxyBackground.wav");
     this.load.audio("swapAudio","assets/sounds/swap.wav");
     this.load.audio("nerfthis","assets/sounds/D.Va_-_Nerf_this!.ogg");
     this.load.audio("iplaytowin","assets/sounds/D.Va_-_I_play_to_win!.ogg");
     this.load.audio("ouch","assets/sounds/D.Va_-_Ouch.ogg");
-    this.load.audio("magica","assets/sounds/magica.mp3");
 
 
     //HomePage
