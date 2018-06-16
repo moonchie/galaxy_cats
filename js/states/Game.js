@@ -1,10 +1,10 @@
 var galaxyCats = galaxyCats || {};
 
 
-var target = 10;
+var target = 20;
 var score = target;
 var text1;
-var scoreDisplay;
+var scoreDisplay,refresh;
 var planet1;
 
 //audios
@@ -45,10 +45,21 @@ galaxyCats.GameState = {
     text1.fontSize = 20;
     text1.addColor('#fffacd',0);
 
+    //---------------TARGET---------------------------
     scoreDisplay = this.add.text(175,528, score,{ font: "30px Audiowide"} );
-        scoreDisplay.anchor.set(0.5);
-        scoreDisplay.fontSize = 20;
-        scoreDisplay.addColor('#fffacd',0);
+    scoreDisplay.anchor.set(0.5);
+    scoreDisplay.fontSize = 20;
+    scoreDisplay.addColor('#fffacd',0);
+
+    //---------------REFRESH BOARD---------------------
+    /*refresh = this.add.sprite(330,630, "refresh");
+    refresh.anchor.set(0.5);
+    refresh.scale.setTo(0.1);
+    refresh.inputEnabled = true;
+    refresh.events.onInputDown.add(function(){
+      this.board;
+    })*/
+
 
     // -------------------EXPLOSION ------------------------
     /*var fire = this.game.add.sprite(200, 360, 'fire', 5);
@@ -168,11 +179,11 @@ swapBlocks: function(block1, block2) {
         matchAudio.play();
         score --;
         scoreDisplay.text = score;
-        if (score === 8){
+        if (score === 8 || score === 16){
           var iplaytowin = this.add.audio('iplaytowin');
           iplaytowin.play();
           matchAudio.stop();
-        } else if (score === 5){
+        } else if (score === 4 || score === 12){
           var nerfthis = this.add.audio("nerfthis");
           matchAudio.stop();
           nerfthis.play();
@@ -200,6 +211,7 @@ swapBlocks: function(block1, block2) {
 },
 //------------------ALLOW USER TO SWAP!! -------------------------
 actionSwap: function(block) {
+  var possibility = this.board.findAllChains();
   //only swap if the UI is not blocked
   if(this.isBoardBlocked) {
     return;
@@ -220,7 +232,6 @@ actionSwap: function(block) {
     if(this.board.checkAdjacent(this.selectedBlock, this.targetBlock)) {
       //block the UI
       this.isBoardBlocked = true;
-
       //swap blocks
       this.swapBlocks(this.selectedBlock, this.targetBlock);
       score = score + 1 -1;
@@ -264,8 +275,6 @@ actionSwap: function(block) {
     }, this);
   },
 
-
-
-
 }
+
 
